@@ -1,3 +1,9 @@
 import React from 'react';
 
-export default () => <div>Hello World!</div>;
+import Table from '../components/Table';
+
+export default () => (
+  <div>
+    <Table />
+  </div>
+);
