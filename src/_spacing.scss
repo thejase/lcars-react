@@ -1,0 +1,23 @@
+/*
+ * Automatically applies spacing to all non-inline siblings
+ * Disable in an element with `--SPACING-ENABLED: 0;`.  Will automatically re-activate in children.  Good for Grid Layout gap control.
+ * Change direction with `--SPACING-HORIZONTAL: 1`
+ */
+@mixin spacing($from: &) {
+
+  & * {
+    margin: 0;
+    /* change this to 1 if you need to space it from it's previous sibling. */
+    --SPACING-ENABLED: 0;
+    --SPACING: 1em;
+    /* change this to 0 to make an element spaced horizontally instead */
+    margin-top: calc(var(--SPACING) * var(--SPACING-ENABLED) * (1 - var(--SPACING-HORIZONTAL)));
+
+    /* DO NOT CHANGE */
+    --SPACING-HORIZONTAL: 0;
+    margin-left: calc(var(--SPACING) * var(--SPACING-ENABLED) * var(--SPACING-HORIZONTAL));
+  }
+
+  /* All non-first sibling will be spaced apart */
+  & * + * { --SPACING-ENABLED: 1; }
+}

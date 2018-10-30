@@ -1,0 +1,23 @@
+@import 'spacing';
+
+:root {
+  --spacing: 8px;
+}
+
+* {
+  &,
+  &:before,
+  &:after {
+    box-sizing: border-box;
+    font-family: inherit;
+    letter-spacing: -(0.5px / 16px) * 1em;
+    text-transform: uppercase;
+  }
+}
+
+html {
+  font-size: 20px;
+  font-family: "LCARS";
+
+}
+

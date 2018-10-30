@@ -1,0 +1,43 @@
+@import 'src/variables';
+
+.button {
+  border: 0;
+  padding: 0;
+  background: transparent;
+  font: inherit;
+  display: flex;
+  cursor: pointer;
+
+  > * {
+    flex: 1;
+  }
+
+
+}
+
+.container {
+  $height: calc(3rem + #{$spacing});
+  $padding: $spacing / 2;
+  border: 0;
+  padding: 0;
+  border-top-left-radius: calc(9999px * var(--button-cap-left, 1));
+  border-bottom-left-radius: calc(9999px * var(--button-cap-left, 1));
+  border-top-right-radius: calc(9999px * var(--button-cap-right, 1));
+  border-bottom-right-radius: calc(9999px * var(--button-cap-right, 1));
+  min-height: $height;
+  padding:
+    $spacing / 2
+    calc(#{$spacing} + (#{$height} - #{$spacing}) / 2 * var(--button-cap-right, 1))
+    $spacing / 2
+    calc(#{$spacing} + (#{$height} - #{$spacing}) / 2 * var(--button-cap-left, 1));
+
+  line-height: ($rem + $spacing / 2) + 0;
+
+  background-color: #a8e0ff;
+  font-family: "LCARS";
+  display: flex;
+  align-items: flex-end;
+  justify-content: flex-end;
+  text-transform: uppercase;
+  letter-spacing: -0.5px;
+}

@@ -1,0 +1,92 @@
+@import 'src/variables';
+$ratio: 160 / 40;
+$title: $rem * 3 + $spacing;
+$sidebar: $title * $ratio;
+$gap: calc(#{$spacing} * 4);
+$template-columns: var(--sidebar) var(--gap) 1fr auto;
+$elbow: "ELBOW    ...     ...     TITLE"   $title
+        "...      CONTENT CONTENT CONTENT"   $gap
+        "ELABEL   CONTENT CONTENT CONTENT"   auto;
+
+.container {
+  --sidebar: var(--display-aside-width, #{$sidebar});
+  --title: var(--display-aside-width, #{$sidebar});
+  --gap: calc(#{$spacing} * 4);
+  --template-columns: var(--sidebar) var(--gap) 1fr auto;
+
+  display: grid;
+  grid-template:
+    $elbow
+    "CONTROLS    CONTENT   CONTENT CONTENT" 1fr
+    / $template-columns;
+  --button-cap-left: 0;
+  --button-cap-right: 0;
+  align-items: start;
+
+  > * {
+    --SPACING-ENABLED: 0;
+  }
+}
+
+.elbow {
+  $radius: calc((var(--sidebar) / 2 + var(--gap)));
+  border: 0;
+  padding: 0;
+  background: transparent;
+  font: inherit;
+  cursor: pointer;
+
+  grid-area: ELBOW / ELBOW / ELBL / TITLE;
+  background-color: purple;
+  height: 100%;
+  overflow: hidden;
+  position: relative;
+  border-top-left-radius: $radius;
+  color: black;
+}
+
+.elbow-content {
+  display: grid;
+  grid-template: $elbow / $template-columns;
+
+  > * {
+    --SPACING-ENABLED: 0;
+  }
+}
+
+.elbow-label {
+  grid-area: VLBL;
+}
+
+.scoop {
+  grid-area: SCOOP;
+  background-color: currentColor;
+  border-top-left-radius: calc((var(--sidebar) / 2 + var(--gap)));
+}
+
+.vertical {
+  grid-area: VERT / VLBL;
+  background-color: red;
+
+}
+
+.scoop {
+}
+
+.title {
+  grid-area: TITLE;
+  background-color: gray;
+  font-size: $title;
+  line-height: 1;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.controls {
+  grid-area: CONTROLS;
+}
+
+.content {
+  grid-area: CONTENT;
+}
