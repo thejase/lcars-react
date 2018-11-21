@@ -1,14 +1,18 @@
 @import 'src/variables';
 $ratio: 160 / 40;
-$title: $rem * 3 + $spacing;
+$title: $rem * 2 + $spacing;
 $sidebar: $title * $ratio;
 $gap: calc(#{$spacing} * 4);
+$height: calc(2rem + #{$spacing});
+
 $template-columns: var(--sidebar) var(--gap) 1fr auto;
 $elbow: "ELBOW    ...     ...     TITLE"   $title
         "...      CONTENT CONTENT CONTENT"   $gap
-        "ELABEL   CONTENT CONTENT CONTENT"   auto;
+        "...      CONTENT CONTENT CONTENT"   auto
+        "ELABEL   CONTENT CONTENT CONTENT"   $height;
 
 .container {
+  background-color: black;
   --sidebar: var(--display-aside-width, #{$sidebar});
   --title: var(--display-aside-width, #{$sidebar});
   --gap: calc(#{$spacing} * 4);
@@ -17,6 +21,7 @@ $elbow: "ELBOW    ...     ...     TITLE"   $title
   display: grid;
   grid-template:
     $elbow
+    "...         CONTENT   CONTENT CONTENT" $spacing
     "CONTROLS    CONTENT   CONTENT CONTENT" 1fr
     / $template-columns;
   --button-cap-left: 0;
@@ -29,25 +34,31 @@ $elbow: "ELBOW    ...     ...     TITLE"   $title
 }
 
 .elbow {
-  $radius: calc((var(--sidebar) / 2 + var(--gap)));
+  $radius: calc(var(--sidebar) / 2 + var(--gap));
   border: 0;
   padding: 0;
   background: transparent;
   font: inherit;
   cursor: pointer;
 
-  grid-area: ELBOW / ELBOW / ELBL / TITLE;
-  background-color: purple;
+  grid-area: ELBOW / ELBOW / ELABEL / TITLE;
+  color: purple;
+  background-color: currentColor;
   height: 100%;
+  min-height: calc(#{$radius} + #{$height});
   overflow: hidden;
   position: relative;
   border-top-left-radius: $radius;
-  color: black;
+
+  &:hover {
+    color: rebeccapurple;
+  }
 }
 
 .elbow-content {
   display: grid;
   grid-template: $elbow / $template-columns;
+  justify-items: end;
 
   > * {
     --SPACING-ENABLED: 0;
@@ -55,7 +66,12 @@ $elbow: "ELBOW    ...     ...     TITLE"   $title
 }
 
 .elbow-label {
-  grid-area: VLBL;
+  $height: calc(3rem + #{$spacing});
+  color: black;
+  grid-area: ELABEL;
+  padding: ($spacing / 2) $spacing;
+  display: flex;
+  align-items: flex-end;
 }
 
 .scoop {
@@ -75,12 +91,14 @@ $elbow: "ELBOW    ...     ...     TITLE"   $title
 
 .title {
   grid-area: TITLE;
-  background-color: gray;
+  background-color: black;
   font-size: $title;
   line-height: 1;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  z-index: 2;
+  color: #133d87;
 }
 
 .controls {
@@ -89,4 +107,10 @@ $elbow: "ELBOW    ...     ...     TITLE"   $title
 
 .content {
   grid-area: CONTENT;
+  align-self: stretch;
+  background-color: black;
+  border-radius: var(--gap) 0 0 0;
+  z-index: 2;
+  color: #133d87;
+  padding: var(--gap);
 }

@@ -1,0 +1,37 @@
+.container {
+  * {
+    --SPACING-ENABLED: 0;
+  }
+  text-align: center;
+}
+
+.row {
+  display: grid;
+  grid-template-columns: var(--columns);
+  grid-gap: 0 1ch;
+  justify-content: space-between;
+
+}
+
+.ch {
+  display: block;
+  visibility: hidden;
+  position: absolute;
+  width: 1ch;
+}
+
+.column {
+  --h: 0;
+  --s: 100;
+  --l: 100;
+
+  color: hsla(var(--h), calc(var(--s) * 1%), calc(var(--l) * 1% - (50% * var(--prime))), 1);
+
+  display: flex;
+  justify-content: var(--justify, flex-start);
+}
+
+.digit {
+  display: block;
+  width: 1ch;
+}
