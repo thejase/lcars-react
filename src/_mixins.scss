@@ -1,0 +1,59 @@
+/// Remove the unit of a length
+/// @param {Number} $number - Number to remove unit from
+/// @return {Number} - Unitless number
+@function strip-unit($number) {
+  @if type-of($number) == 'number' and not unitless($number) {
+    @return $number / ($number * 0 + 1);
+  }
+
+  @return $number;
+}
+
+@mixin block-font($size: 20px) {
+  // via https://iamvdo.me/en/blog/css-font-metrics-line-height-and-vertical-align
+  // "First we set all font metrics"
+
+  // Open font forge + font => Element => Font info...
+  // General tab
+  $font-family: 'LCARS';
+  $em-size: 2048;
+  // OS/2 tab
+  $ascender: 2342 / $em-size;
+  $descender: -40 / $em-size;
+  $cap-height: 1760 / $em-size;
+  $x-height: 1500 / $em-size;
+  $line-gap: 0;
+
+  --font-family: 'LCARS';
+  --em-size: 2048;
+  // OS/2 tab
+  --ascender: #{$ascender};
+  --descender: #{$descender};
+  --cap-height: #{$cap-height};
+  --x-height: #{$x-height};
+
+  font-family: $font-family;
+  text-transform: uppercase;
+
+  // scale size
+  $computed-font-size: $size / $cap-height;
+  font-size: $computed-font-size;
+
+  // adjust vertical alignment
+  // "First, compute line-height: normal and content-area’s height:"
+  $normal-line-height: $ascender + $descender + $line-gap;
+  $content-area: $normal-line-height * strip-unit($size);
+  $distance-bottom: $descender;
+  $distance-top: $ascender - $cap-height;
+
+  // "We can now compute vertical-align"
+  $v-align: ($distance-bottom - $distance-top) * strip-unit($computed-font-size);
+  > * {
+    vertical-align: $v-align * 1px;
+  }
+
+  // "At the end, we set the desired line-height and compute it while maintaining a vertical alignment:"
+  $desired-line-height: 1;
+  $computed-line-height: (($desired-line-height * $cap-height) - $v-align) * 1px;
+  line-height: $computed-line-height;
+}

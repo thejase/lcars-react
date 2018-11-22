@@ -4,7 +4,7 @@ import styles from "./button.module.scss";
 function Button({ children }) {
   return (
     <button className={styles.button}>
-      <span class={styles.container}>{children}</span>
+      <span className={styles.container}>{children}</span>
     </button>
   );
 }

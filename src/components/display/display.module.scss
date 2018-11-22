@@ -1,4 +1,5 @@
 @import 'src/variables';
+@import 'src/mixins';
 $ratio: 160 / 40;
 $title: $rem * 2 + $spacing;
 $sidebar: $title * $ratio;
@@ -6,7 +7,7 @@ $gap: calc(#{$spacing} * 4);
 $height: calc(2rem + #{$spacing});
 
 $template-columns: var(--sidebar) var(--gap) 1fr auto;
-$elbow: "ELBOW    ...     ...     TITLE"   $title
+$elbow: "ELBOW    ELBOW     ELBOW     TITLE"   $title
         "...      CONTENT CONTENT CONTENT"   $gap
         "...      CONTENT CONTENT CONTENT"   auto
         "ELABEL   CONTENT CONTENT CONTENT"   $height;
@@ -18,6 +19,13 @@ $elbow: "ELBOW    ...     ...     TITLE"   $title
   --gap: calc(#{$spacing} * 4);
   --template-columns: var(--sidebar) var(--gap) 1fr auto;
 
+  --elbow-top-left: 1;
+  --elbow-top-right: 0;
+  --elbow-bottom-left: 0;
+  --elbow-bottom-right: 0;
+  padding: 1em;
+
+  background-color: black;
   display: grid;
   grid-template:
     $elbow
@@ -26,7 +34,6 @@ $elbow: "ELBOW    ...     ...     TITLE"   $title
     / $template-columns;
   --button-cap-left: 0;
   --button-cap-right: 0;
-  align-items: start;
 
   > * {
     --SPACING-ENABLED: 0;
@@ -78,6 +85,7 @@ $elbow: "ELBOW    ...     ...     TITLE"   $title
   grid-area: SCOOP;
   background-color: currentColor;
   border-top-left-radius: calc((var(--sidebar) / 2 + var(--gap)));
+  overflow: hidden;
 }
 
 .vertical {
@@ -90,6 +98,10 @@ $elbow: "ELBOW    ...     ...     TITLE"   $title
 }
 
 .title {
+  display: inline-flex;
+  align-items: center;
+
+  @include block-font($title);
   grid-area: TITLE;
   background-color: black;
   font-size: $title;
